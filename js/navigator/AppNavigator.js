@@ -4,7 +4,7 @@
  * @Author: Rock Lee
  * @Date: 2019-10-24 09:27:33
  * @LastEditors: Rock Lee
- * @LastEditTime: 2019-10-28 10:27:39
+ * @LastEditTime: 2019-10-28 11:13:02
  */
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
@@ -60,6 +60,6 @@ const mapStateToProps = state =>({
     state:state.nav
 });
 
-export const middleware  = createReactNavigationReduxMiddleware('root', state => state.nav);
+export const middleware  = createReactNavigationReduxMiddleware( state => state.nav,'root');
 export default connect(mapStateToProps)(AppWithNavigationState);
 export const rootCom = 'Init';//设置根路由

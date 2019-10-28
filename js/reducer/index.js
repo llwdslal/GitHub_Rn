@@ -4,10 +4,11 @@
  * @Author: Rock Lee
  * @Date: 2019-10-28 10:34:08
  * @LastEditors: Rock Lee
- * @LastEditTime: 2019-10-28 11:04:01
+ * @LastEditTime: 2019-10-28 11:51:55
  */
 import { combineReducers } from 'redux';
-import { rootCom, RootNavigator } from '../navigator/AppNavigator'
+import { rootCom, RootNavigator } from '../navigator/AppNavigator';
+import theme from './theme';
 
 //设置默认state 
 const navState = RootNavigator.router.getStateForAction(RootNavigator.router.getActionForPathAndParams(rootCom));
@@ -20,7 +21,8 @@ const navReducer = (state = navState,action) => {
 }
 
 const index  =combineReducers({
-    nav:navReducer
+    nav:navReducer,
+    theme:theme
 });
 
 export default index;
