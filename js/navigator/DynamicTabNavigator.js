@@ -4,11 +4,11 @@
  * @Author: Rock Lee
  * @Date: 2019-10-28 13:49:42
  * @LastEditors: Rock Lee
- * @LastEditTime: 2019-10-28 14:23:37
+ * @LastEditTime: 2019-10-28 15:32:56
  */
 import React, { Component } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { BottomTabBar, createBottomTabNavigator } from 'react-navigation-tabs';
 import { createAppContainer } from 'react-navigation';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -58,19 +58,48 @@ export default class DynamicTabNavigator extends Component {
 
     _tabNavigator() {
         //结构所有Tab
-        const {PopularPage,TrendingPage,FavouritePage,MyPage} = TABS;
+        const { PopularPage, TrendingPage, FavouritePage, MyPage } = TABS;
         //这里根据网络请求 动态配置要显示的 Tab 和配置
 
-        const showTabs ={PopularPage,TrendingPage,FavouritePage,MyPage} ;
+        const showTabs = { PopularPage, TrendingPage, FavouritePage, MyPage };
         // PopularPage.navigationOptions.tabBarLabel = "xx";
 
-        return createAppContainer(createBottomTabNavigator(showTabs));
+        return createAppContainer(createBottomTabNavigator(showTabs, {
+            tabBarComponent:TabBarComponent
+        }));
     }
 
-    render(){
-        NavigationUtil.navigation = this.props.navigation;
+    render() {
+
         const Tabs = this._tabNavigator();
 
-        return <Tabs/>
+        return <Tabs />
+    }
+}
+
+class TabBarComponent extends Component {
+    constructor(props) {
+        super(props)
+        this.theme = {
+            tintColor: props.activeTintColor,
+            updateTime: new Date().getTime(),
+        }
+    }
+
+    render() {
+        const {routes,index} = this.props.navigation.state;
+        if(routes[index].params){
+            const {theme} = routes[index].params;
+            if(theme && theme.updateTime > this.theme.updateTime){
+                this.theme = theme;
+            }
+        }
+
+        return (
+            <BottomTabBar
+                {...this.props}
+                activeTintColor = {this.theme.tintColor || this.props.activeTintColor}
+            />
+        );
     }
 }

@@ -4,14 +4,14 @@
  * @Author: Rock Lee
  * @Date: 2019-10-24 13:51:17
  * @LastEditors: Rock Lee
- * @LastEditTime: 2019-10-28 14:06:50
+ * @LastEditTime: 2019-10-28 15:01:10
  */
 export default class NavigationUtil {
 
     static navigation;
 
     
-    static  goToPage(params,page){
+    static  goToPage(page){
         const navigation = NavigationUtil.navigation;
 
         if(!navigation){
@@ -19,7 +19,7 @@ export default class NavigationUtil {
             return;
         }
 
-        navigation.navigate(page,{... params});
+        navigation.navigate(page);
     }
 
 
