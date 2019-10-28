@@ -4,30 +4,21 @@
  * @Author: Rock Lee
  * @Date: 2019-10-23 17:13:20
  * @LastEditors: Rock Lee
- * @LastEditTime: 2019-10-24 11:03:05
+ * @LastEditTime: 2019-10-28 11:07:11
  */
 
 import React, { Component } from 'react';
-import { View, StyleSheet,Text } from 'react-native';
+import {Provider} from 'react-redux';
+import AppNavigator from './js/navigator/AppNavigator';
+import store from './js/store/index';
+
 export default class  extends Component {
   
   render() {
     return (
-      <View style={styles.container}>
-        
-      
-        <Text>Hello</Text>
-        
-      </View>
+      <Provider store = {store}>
+        <AppNavigator/>
+      </Provider>
     );
   }
 }
-
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});

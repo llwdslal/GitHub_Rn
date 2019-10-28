@@ -4,15 +4,17 @@
  * @Author: Rock Lee
  * @Date: 2019-10-24 09:27:33
  * @LastEditors: Rock Lee
- * @LastEditTime: 2019-10-24 13:18:52
+ * @LastEditTime: 2019-10-28 10:27:39
  */
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack'
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs'
+import { connect } from 'react-redux'
+import { createReactNavigationReduxMiddleware, createReduxContainer } from 'react-navigation-redux-helpers'
 
-import  WelcomePage  from '../pages/WelcomePage'
-import  HomePage  from '../pages/HomePage'
-import  DetailPage  from '../pages/DetailPage'
+import WelcomePage from '../pages/WelcomePage'
+import HomePage from '../pages/HomePage'
+import DetailPage from '../pages/DetailPage'
 
 const InitNavigator = createStackNavigator({
     WelcomePage: {
@@ -42,7 +44,7 @@ const MainNavigator = createStackNavigator({
 
 });
 
-const SwitchNavigator =  createSwitchNavigator({
+export const RootNavigator = createSwitchNavigator({
     Init: InitNavigator,
     Main: MainNavigator,
 }, {
@@ -51,4 +53,13 @@ const SwitchNavigator =  createSwitchNavigator({
     }
 });
 
-export default createAppContainer(SwitchNavigator);
+
+const AppWithNavigationState = createReduxContainer(RootNavigator,'root');
+
+const mapStateToProps = state =>({
+    state:state.nav
+});
+
+export const middleware  = createReactNavigationReduxMiddleware('root', state => state.nav);
+export default connect(mapStateToProps)(AppWithNavigationState);
+export const rootCom = 'Init';//设置根路由
