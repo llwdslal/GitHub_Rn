@@ -22,7 +22,7 @@ const navReducer = (state = navState,action) => {
 
 const index  =combineReducers({
     nav:navReducer,
-    theme:theme
+    theme:theme 
 });
 
 export default index;
